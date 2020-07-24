@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- 升级框顶部的蓝色线-->
+    <style name="divider_horizontal_dialog_top">
+        <item name="android:background">@color/blue</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">6dip</item>
+    </style>
+
+
+</resources>
