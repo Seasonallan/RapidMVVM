@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ViewStub
-        android:id="@+id/common_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/inc_common_titlebar"/>
+    <data>
+        <variable
+            name="empty"
+            type="com.season.mvp.ui.empty.EmptyImpl" />
+        <variable
+            name="loading"
+            type="com.season.mvp.ui.loading.LoadingImpl" />
+        <variable
+            name="titlebar"
+            type="com.season.mvp.ui.titlebar.TitleBarImpl" />
+    </data>
 
-    <FrameLayout
-        android:id="@+id/main_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/titlebar_container"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <ViewStub
-        android:id="@+id/common_loading"
-        android:layout_width="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_height="360dp"
-        android:layout="@layout/inc_common_loading"/>
+        <ViewStub
+            android:id="@+id/common_top"
+            bind:titlebar="@{titlebar}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/inc_common_titlebar" />
 
-    <ViewStub
-        android:id="@+id/common_empty"
-        android:layout_width="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_height="360dp"
-        android:layout="@layout/inc_common_empty"/>
+        <FrameLayout
+            android:id="@+id/main_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/titlebar_container" />
+
+        <ViewStub
+            android:id="@+id/common_loading"
+            bind:loading="@{loading}"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="360dp"
+            android:layout="@layout/inc_common_loading" />
+
+        <ViewStub
+            android:id="@+id/common_empty"
+            bind:empty="@{empty}"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="360dp"
+            android:layout="@layout/inc_common_empty" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
