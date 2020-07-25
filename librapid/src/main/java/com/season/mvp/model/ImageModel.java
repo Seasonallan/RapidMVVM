@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.season.lib.BaseContext;
@@ -34,6 +35,26 @@ public class ImageModel {
      */
     public static void bindImage2View(ImageView imageView, String url) {
         Picasso.with(BaseContext.sContext).load(url).into(imageView);
+    }
+
+    /**
+     * 加载图片
+     *
+     * @param imageView
+     * @param url
+     */
+    public static void bindImage2View(ImageView imageView, String url, int placeholderResId) {
+        Picasso.with(BaseContext.sContext).load(url).placeholder(placeholderResId).into(imageView);
+    }
+
+    /**
+     * 加载图片
+     *
+     * @param imageView
+     * @param url
+     */
+    public static void bindImage2View(ImageView imageView, String url, Drawable placeholderDrawable) {
+        Picasso.with(BaseContext.sContext).load(url).placeholder(placeholderDrawable).into(imageView);
     }
 
     /**

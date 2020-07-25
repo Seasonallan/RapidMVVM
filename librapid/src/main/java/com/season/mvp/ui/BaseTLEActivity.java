@@ -18,20 +18,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
-import com.season.lib.ui.BaseRecycleAdapter;
-import com.season.lib.util.ToastUtil;
 import com.season.mvp.R;
 import com.season.mvp.databinding.BaseTleBindingImpl;
-import com.season.mvp.ui.empty.EmptyImpl;
-import com.season.mvp.ui.empty.IEmptyAction;
-import com.season.mvp.ui.empty.IEmptyView;
-import com.season.mvp.ui.loading.ILoadingView;
-import com.season.mvp.ui.loading.LoadingImpl;
-import com.season.mvp.ui.titlebar.ITitleBar;
-import com.season.mvp.ui.titlebar.ITitleBarAction;
-import com.season.mvp.ui.titlebar.TitleBarImpl;
-
 import static com.season.lib.BaseContext.showToast;
 
 /**
@@ -39,42 +29,38 @@ import static com.season.lib.BaseContext.showToast;
  * User: SeasonAllan(451360508@qq.com)
  * Time: 2017-06-10 14:37
  */
-public abstract class BaseTLEActivity extends AppCompatActivity implements ITitleBarAction, IEmptyAction, IView {
+public abstract class BaseTLEActivity<T extends ViewDataBinding> extends AppCompatActivity{
 
 
     private ViewGroup mContentView;
-
-    private ITitleBar mTitleBar;
-    private ILoadingView mLoadingView;
-    private IEmptyView mEmptyView;
-
+    public BaseTleBindingImpl baseTleBinding;
     boolean viewSet = false;
+
+    /**
+     * 是否需要通用组件
+     * @return
+     */
+    protected boolean TLEEnable(){
+        return true;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseTleBindingImpl baseTleBinding = DataBindingUtil.setContentView(this, R.layout.base_tle);
-        viewSet = true;
-        mEmptyView = new EmptyImpl(this, baseTleBinding);
-        mLoadingView = new LoadingImpl(baseTleBinding);
-
-        if (isTopTileEnable()){
-            mTitleBar = new TitleBarImpl(this , baseTleBinding);
+        if (TLEEnable()){
+            baseTleBinding = DataBindingUtil.setContentView(this, R.layout.base_tle);
+            viewSet = true;
+            mContentView = findViewById(R.id.main_view);
         }
+    }
 
-        mContentView = findViewById(R.id.main_view);
+    protected T inflate(int layoutId) {
+        return DataBindingUtil.inflate(LayoutInflater.from(this), layoutId, null, false);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    /**
-     * 顶部标题栏是否显示
-     * @return
-     */
-    protected boolean isTopTileEnable(){
-        return true;
     }
 
     @Override
@@ -90,51 +76,21 @@ public abstract class BaseTLEActivity extends AppCompatActivity implements ITitl
 
     @Override
     public void setContentView(int layoutResID) {
-        View view = LayoutInflater.from(this).inflate(layoutResID, null);
-        setContentView(view);
-    }
-
-
-    /**
-     * 顶部标题控制栏
-     * @return
-     */
-    public ITitleBar getTitleBar(){
-        return mTitleBar;
-    }
-
-    @Override
-    public IEmptyView getEmptyView() {
-        return mEmptyView;
-    }
-
-    @Override
-    public void onEmptyViewClick() {
-        ToastUtil.showToast("click");
-    }
-
-    @Override
-    public <T> void onResponse(int type, T result) {
-
-    }
-
-    @Override
-    public BaseRecycleAdapter getAdapter() {
-        return null;
-    }
-
-    @Override
-    public void onError(int type, String errorMessage) {
-
+        if (viewSet){
+            T binding = inflate(layoutResID);
+            setContentView(binding.getRoot());
+            bindViewModel(binding);
+        }else{
+            super.setContentView(layoutResID);
+        }
     }
 
     /**
-     * 控制加载中的显示与消失
-     * @return
+     * 绑定VM
+     *
+     * @param binding
      */
-    public ILoadingView getLoadingView(){
-        return mLoadingView;
-    }
+    protected abstract void bindViewModel(T binding);
 
     //---------------------------键盘控制start---------------------------------------
     /**

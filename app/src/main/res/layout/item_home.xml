@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.season.example.entry.VideoItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp">
+
+        <RelativeLayout
+            android:id="@+id/video_image_cont"
+            android:layout_width="fill_parent"
+            android:layout_height="62dp">
+
+            <ImageView
+                android:id="@+id/video_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:background="@color/item_video_image"
+                app:imageUrl="@{item.cover_url}"
+                app:placeholder="@{@drawable/selector_bkg_transparent}"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/video_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="2"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="14dp"
+                android:text="@{item.name}"
+                android:textColor="@color/item_video_title"
+                android:textSize="16sp" />
+
+            <com.season.lib.ui.view.AlignTextView
+                android:id="@+id/video_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/video_title"
+                android:lineSpacingExtra="4dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="8dp"
+                android:paddingTop="6dp"
+                android:text="@{item.intro}"
+                android:textColor="@color/item_video_content"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

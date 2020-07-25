@@ -1,12 +1,8 @@
 package com.season.example.ui.activity;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-
-import androidx.databinding.DataBindingUtil;
-
 import com.season.example.R;
-import com.season.example.databinding.ActivityAboutBinding;
+import com.season.example.databinding.ActivityAboutBindingImpl;
 import com.season.example.vm.AboutViewModel;
 import com.season.mvp.ui.BaseTLEActivity;
 
@@ -15,19 +11,21 @@ import com.season.mvp.ui.BaseTLEActivity;
  * User: SeasonAllan(451360508@qq.com)
  * Time: 2017-06-10 16:00
  */
-public class AboutActivity extends BaseTLEActivity {
+public class AboutActivity extends BaseTLEActivity<ActivityAboutBindingImpl> {
 
-    private AboutViewModel aboutViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getTitleBar().setTopTile("About");
-        getTitleBar().enableLeftButton();
+        setContentView(R.layout.activity_about);
+    }
 
-        ActivityAboutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_about, null, false);
-        setContentView(binding.getRoot());
-        aboutViewModel = new AboutViewModel(binding);
+    @Override
+    protected void bindViewModel(ActivityAboutBindingImpl binding){
+        AboutViewModel aboutViewModel = new AboutViewModel(this);
+        binding.setAbout(aboutViewModel);
 
+        aboutViewModel.getTitleBar().setTopTile("About");
+        aboutViewModel.getTitleBar().enableLeftButton();
         aboutViewModel.load();
     }
 

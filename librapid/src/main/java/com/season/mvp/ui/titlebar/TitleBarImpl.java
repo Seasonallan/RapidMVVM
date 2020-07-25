@@ -1,7 +1,6 @@
 package com.season.mvp.ui.titlebar;
 
 import android.view.View;
-
 import com.season.mvp.R;
 import com.season.mvp.databinding.BaseTleBindingImpl;
 import com.season.mvp.ui.BaseImpl;
@@ -13,12 +12,9 @@ import com.season.mvp.ui.BaseImpl;
  */
 public class TitleBarImpl extends BaseImpl implements ITitleBar {
 
-    private ITitleBarAction mAction;
-
-    public TitleBarImpl(ITitleBarAction action, BaseTleBindingImpl baseTleBinding) {
+    public TitleBarImpl(BaseTleBindingImpl baseTleBinding) {
         super(baseTleBinding);
         baseTleBinding.setTitlebar(this);
-        this.mAction = action;
         checkTitleNull();
     }
 
@@ -45,10 +41,18 @@ public class TitleBarImpl extends BaseImpl implements ITitleBar {
     }
 
     public void onTopLeftClick(){
-        mAction.finish();
+        if (topLeftClickListener != null){
+            topLeftClickListener.onClick(null);
+        }
     }
 
-    public int topLeftVisible = View.VISIBLE;
+    @Override
+    public void setOnTopLeftClickListener(View.OnClickListener listener){
+        this.topLeftClickListener = listener;
+    }
+    private View.OnClickListener topLeftClickListener;
+
+    public int topLeftVisible = View.GONE;
     public int topLeftResource = R.mipmap.back_white;
     @Override
     public void enableLeftButton() {

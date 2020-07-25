@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface IPull2RefreshView<T>{
 
-    public static final int CREATE = 0x9;
-    public static final int REFRESH = 0x10;
-    public static final int MORE = 0x11;
-    public static final int GET_KEY = 0x12;
+    int CREATE = 0x9;
+    int REFRESH = 0x10;
+    int MORE = 0x11;
+    int GET_KEY = 0x12;
 
     /**
      * 加载成功

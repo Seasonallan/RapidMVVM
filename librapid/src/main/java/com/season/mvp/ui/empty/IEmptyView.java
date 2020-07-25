@@ -1,5 +1,7 @@
 package com.season.mvp.ui.empty;
 
+import android.view.View;
+
 /**
  * Disc: 加载失败或为空组件
  * User: SeasonAllan(451360508@qq.com)
@@ -7,6 +9,11 @@ package com.season.mvp.ui.empty;
  */
 public interface IEmptyView {
 
+    /**
+     * event
+     * @param listener
+     */
+    void setOnEmptyClickListener(View.OnClickListener listener);
     /**
      * 显示加载错误
      */

@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<Button
-    android:id="@+id/btn_set"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:text="jump" />
+    <data>
+        <variable
+            name="user"
+            type="com.season.example.ui.fragment.UserFragment.UserViewModel" />
+    </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:onClick="@{(view)->user.onBtnClick(view)}"
+            android:text="@{user.desc}" />
+
+    </RelativeLayout>
+</layout>

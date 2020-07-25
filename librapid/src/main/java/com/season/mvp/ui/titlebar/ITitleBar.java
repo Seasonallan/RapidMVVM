@@ -10,6 +10,11 @@ import android.view.View;
 public interface ITitleBar {
 
     /**
+     * 事件
+     * @param listener
+     */
+    void setOnTopLeftClickListener(View.OnClickListener listener);
+    /**
      * 设置标题
      * @param title
      */

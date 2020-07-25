@@ -1,27 +1,37 @@
 package com.season.example.vm;
 
 import android.os.Handler;
+import android.view.View;
+import com.season.lib.util.ToastUtil;
+import com.season.mvp.ui.BaseTLEActivity;
+import com.season.mvp.vm.BaseViewModel;
 
-import androidx.databinding.BaseObservable;
 
-import com.season.example.databinding.ActivityAboutBinding;
-
-
-public class AboutViewModel extends BaseObservable {
+public class AboutViewModel extends BaseViewModel {
 
     public String desc = "cd";
-    ActivityAboutBinding aboutBinding;
-    public AboutViewModel(ActivityAboutBinding aboutBinding){
-        this.aboutBinding = aboutBinding;
-        aboutBinding.setAbout(this);
+
+    public AboutViewModel(final BaseTLEActivity baseTLEActivity){
+        super(baseTLEActivity);
     }
 
     public void load(){
-
+        getLoadingView().showLoadingView();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                desc = "after";
+                getLoadingView().dismissLoadingView();
+                getEmptyView().showEmptyView();
+                getEmptyView().setOnEmptyClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.showToast("10086");
+                        getEmptyView().dismissEmptyView();
+                        desc = "fill";
+                        notifyChange();
+                    }
+                });
+                desc = "";
                 notifyChange();
             }
         }, 2921);

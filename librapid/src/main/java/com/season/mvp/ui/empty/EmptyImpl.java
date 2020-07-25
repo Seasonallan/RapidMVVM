@@ -1,11 +1,6 @@
 package com.season.mvp.ui.empty;
 
 import android.view.View;
-import android.widget.ImageView;
-
-import androidx.databinding.BaseObservable;
-import androidx.databinding.BindingAdapter;
-
 import com.season.mvp.R;
 import com.season.mvp.databinding.BaseTleBindingImpl;
 import com.season.mvp.ui.BaseImpl;
@@ -21,15 +16,20 @@ public class EmptyImpl extends BaseImpl implements IEmptyView {
     public int resourceId = R.mipmap.error_touch;
 
     public void onClick(){
-        mAction.onEmptyViewClick();
+        if (listener != null){
+            listener.onClick(null);
+        }
     }
 
-    private IEmptyAction mAction;
-
-    public EmptyImpl(IEmptyAction action, BaseTleBindingImpl baseTleBinding) {
+    public EmptyImpl(BaseTleBindingImpl baseTleBinding) {
         super(baseTleBinding);
-        this.mAction = action;
         baseTleBinding.setEmpty(this);
+    }
+
+    private View.OnClickListener listener;
+    @Override
+    public void setOnEmptyClickListener(View.OnClickListener listener){
+        this.listener = listener;
     }
 
     @Override
