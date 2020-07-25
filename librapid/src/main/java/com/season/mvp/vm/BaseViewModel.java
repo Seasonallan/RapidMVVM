@@ -13,18 +13,26 @@ import com.season.mvp.ui.loading.LoadingImpl;
 import com.season.mvp.ui.titlebar.ITitleBar;
 import com.season.mvp.ui.titlebar.TitleBarImpl;
 
+import java.lang.ref.WeakReference;
+
 public class BaseViewModel extends BaseObservable {
 
     private ITitleBar mTitleBar;
     private ILoadingView mLoadingView;
     private IEmptyView mEmptyView;
 
+    public void release(){
+        baseTleBinding.unbind();
+        baseTleBinding = null;
+    }
+
     public BaseViewModel(final BaseTLEActivity baseTLEActivity){
         this(baseTLEActivity, true);
     }
 
     private BaseTleBindingImpl baseTleBinding;
-    public BaseViewModel(final BaseTLEActivity baseTLEActivity, boolean showTitle){
+    public BaseViewModel(BaseTLEActivity baseTLEActivity, boolean showTitle){
+        final WeakReference<BaseTLEActivity> activityWeakReference = new WeakReference<>(baseTLEActivity);
         baseTleBinding = baseTLEActivity.baseTleBinding;
         mEmptyView = new EmptyImpl(baseTleBinding);
         mLoadingView = new LoadingImpl(baseTleBinding);
@@ -33,7 +41,8 @@ public class BaseViewModel extends BaseObservable {
             mTitleBar.setOnTopLeftClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    baseTLEActivity.finish();
+                    if (activityWeakReference.get() != null)
+                        activityWeakReference.get().finish();
                 }
             });
         }
@@ -53,6 +62,7 @@ public class BaseViewModel extends BaseObservable {
     }
 
     public BaseViewModel(final BaseTLEFragment baseTLEActivity, boolean showTitle){
+        final WeakReference<BaseTLEFragment> activityWeakReference = new WeakReference<>(baseTLEActivity);
         baseTleBinding = baseTLEActivity.baseTleBinding;
         mEmptyView = new EmptyImpl(baseTleBinding);
         mLoadingView = new LoadingImpl(baseTleBinding);
@@ -61,7 +71,8 @@ public class BaseViewModel extends BaseObservable {
             mTitleBar.setOnTopLeftClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    baseTLEActivity.getActivity().finish();
+                    if (activityWeakReference.get() != null)
+                        activityWeakReference.get().getActivity().finish();
                 }
             });
         }

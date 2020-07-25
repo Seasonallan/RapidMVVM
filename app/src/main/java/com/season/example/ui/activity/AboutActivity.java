@@ -4,6 +4,7 @@ import android.os.Bundle;
 import com.season.example.R;
 import com.season.example.databinding.ActivityAboutBindingImpl;
 import com.season.example.vm.AboutViewModel;
+import com.season.lib.util.LogUtil;
 import com.season.mvp.ui.BaseTLEActivity;
 
 /**
@@ -19,9 +20,10 @@ public class AboutActivity extends BaseTLEActivity<ActivityAboutBindingImpl> {
         setContentView(R.layout.activity_about);
     }
 
+    AboutViewModel aboutViewModel;
     @Override
     protected void bindViewModel(ActivityAboutBindingImpl binding){
-        AboutViewModel aboutViewModel = new AboutViewModel(this);
+        aboutViewModel = new AboutViewModel(this);
         binding.setAbout(aboutViewModel);
 
         aboutViewModel.getTitleBar().setTopTile("About");
@@ -29,4 +31,10 @@ public class AboutActivity extends BaseTLEActivity<ActivityAboutBindingImpl> {
         aboutViewModel.load();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        aboutViewModel.release();
+
+    }
 }

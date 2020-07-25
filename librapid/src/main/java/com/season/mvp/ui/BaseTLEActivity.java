@@ -49,6 +49,7 @@ public abstract class BaseTLEActivity<T extends ViewDataBinding> extends AppComp
         super.onCreate(savedInstanceState);
         if (TLEEnable()){
             baseTleBinding = DataBindingUtil.setContentView(this, R.layout.base_tle);
+            baseTleBinding.setLifecycleOwner(this);
             viewSet = true;
             mContentView = findViewById(R.id.main_view);
         }

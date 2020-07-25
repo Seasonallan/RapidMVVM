@@ -2,6 +2,8 @@ package com.season.example.vm;
 
 import android.os.Handler;
 import android.view.View;
+
+import com.season.lib.util.LogUtil;
 import com.season.lib.util.ToastUtil;
 import com.season.mvp.ui.BaseTLEActivity;
 import com.season.mvp.vm.BaseViewModel;
@@ -34,7 +36,7 @@ public class AboutViewModel extends BaseViewModel {
                 desc = "";
                 notifyChange();
             }
-        }, 2921);
+        }, 5921);
     }
 
 }
