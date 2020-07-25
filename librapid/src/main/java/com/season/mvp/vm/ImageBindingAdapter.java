@@ -1,4 +1,4 @@
-package com.season.example.ui.adapter;
+package com.season.mvp.vm;
 
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
