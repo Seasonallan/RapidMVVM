@@ -44,37 +44,7 @@ public class HomeFragment extends BaseTLEFragment<FragmentHomeBinding>{
                         startActivity(AboutActivity.class);
                     }
                 };
-                mHomeAdapter.addHeadView(new HeadFootView() {
-                    @Override
-                    public void onBindHolder(RecyclerView.ViewHolder holder) {
-                        BindingViewHolder homeHolder = (BindingViewHolder) holder;
-                        ViewDataBinding binding = homeHolder.getBinding();
-                    }
-
-                    @Override
-                    public RecyclerView.ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-                        ViewDataBinding binding = DataBindingUtil.inflate(mHomeAdapter.inflater,
-                                R.layout.item_comment, parent, false);
-                        return new BindingViewHolder(binding);
-                    }
-
-                });
-                mHomeAdapter.addFootView(new HeadFootView() {
-                    @Override
-                    public void onBindHolder(RecyclerView.ViewHolder holder) {
-                        BindingViewHolder<ItemCommentBinding> homeHolder = (BindingViewHolder) holder;
-                        ItemCommentBinding binding = homeHolder.getBinding();
-                        binding.commentTvNickname.setText("底部");
-                    }
-
-                    @Override
-                    public RecyclerView.ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-                        ItemCommentBinding binding = DataBindingUtil.inflate(mHomeAdapter.inflater,
-                                R.layout.item_comment, parent, false);
-                        return new BindingViewHolder(binding);
-                    }
-
-                });
+                mHomeAdapter.setHasStableIds(true);
                 return mHomeAdapter;
             }
 
@@ -85,7 +55,7 @@ public class HomeFragment extends BaseTLEFragment<FragmentHomeBinding>{
 
         };
 
-        homeViewModel.getTitleBar().setTopTile("首页");
+        homeViewModel.getTitleBar().setTopTile("商品管理");
         homeViewModel.loadList(CREATE);
     }
 

@@ -18,7 +18,7 @@ import com.season.mvp.ui.BaseTLEActivity;
 
 public class MainActivity extends BaseTLEActivity implements ViewPager.OnPageChangeListener, BottomNavigationBar.OnTabSelectedListener {
 
-    private String mTabDescription[] = {"Home", "Category", "Hot", "User"};
+    private String mTabDescription[] = {"商品", "订单", "统计", "个人"};
     private int mTabIcon[] = {R.mipmap.icon_home, R.mipmap.icon_category,
             R.mipmap.icon_hot, R.mipmap.icon_user};
     private int mTabIconSel[] = {R.mipmap.icon_home_pressed, R.mipmap.icon_category_pressed,

@@ -14,6 +14,7 @@ import com.season.example.entry.VideoItem;
 import com.season.lib.support.dimen.ScreenUtils;
 import com.season.lib.ui.BaseRecycleAdapter;
 import com.season.mvp.vm.BindingViewHolder;
+
 import java.util.List;
 
 /**
@@ -28,14 +29,13 @@ public class HomeAdapter extends BaseRecycleAdapter<VideoItem> {
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateHolder(ViewGroup parent, int viewType) {
         ItemHomeBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_home, parent, false);
-
-        View imageContainerView = binding.videoImageCont;
-        LinearLayout.LayoutParams param = (LinearLayout.LayoutParams) imageContainerView.getLayoutParams();
-        param.width = (int) (ScreenUtils.getScreenWidth() /3.1f * 1);
-        param.height = (int) (ScreenUtils.getScreenWidth()/3.1f * 3/2);
-        imageContainerView.requestLayout();
         return new BindingViewHolder(binding);
     }
 
@@ -45,7 +45,6 @@ public class HomeAdapter extends BaseRecycleAdapter<VideoItem> {
         VideoItem item = getItem(position);
         ItemHomeBinding binding = homeHolder.getBinding();
         binding.setItem(item);
-        binding.videoContent.recalculate();
 
     }
 
